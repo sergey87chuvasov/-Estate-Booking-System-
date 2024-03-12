@@ -11,17 +11,17 @@
   flex-direction: column;
 
   @include lg {
-    background-color: #ccff00;
+    // background-color: #ccff00;
     max-width: 1280px;
   }
 
   @include md {
-    background-color: #20e2cc;
+    // background-color: #20e2cc;
     max-width: 768px;
   }
 
   @include sm {
-    background-color: red;
+    // background-color: red;
     max-width: 640px;
   }
 
