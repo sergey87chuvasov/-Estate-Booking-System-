@@ -1,10 +1,10 @@
 @import '../../responsive.scss';
 
 nav {
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
 
   a {
     transition: all 0.4s ease;
@@ -46,7 +46,6 @@ nav {
       }
     }
   }
-
   .right {
     flex: 2;
     display: flex;
@@ -72,8 +71,8 @@ nav {
       img {
         width: 40px;
         height: 40px;
-        object-fit: cover;
         border-radius: 50%;
+        object-fit: cover;
         margin-right: 20px;
       }
 
@@ -112,7 +111,7 @@ nav {
 
     .menuIcon {
       display: none;
-      z-index: 100;
+      z-index: 999;
 
       img {
         width: 36px;
@@ -121,7 +120,7 @@ nav {
       }
 
       @include sm {
-        display: initial;
+        display: inline;
       }
     }
 
