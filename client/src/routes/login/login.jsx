@@ -3,25 +3,25 @@ import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import apiRequest from '../../lib/apiRequest';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContect';
 
 function Login() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const { updateUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
     setError('');
-
     const formData = new FormData(e.target);
 
     const username = formData.get('username');
     const password = formData.get('password');
-
-    // console.log(username, email, password);
 
     try {
       const res = await apiRequest.post('/auth/login', {
@@ -29,18 +29,15 @@ function Login() {
         password,
       });
 
-      localStorage.setItem('user', JSON.stringify(res.data));
-      navigate('/');
+      updateUser(res.data);
 
-      // console.log(res);
+      navigate('/');
     } catch (err) {
-      // console.log(err);
       setError(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className='login'>
       <div className='formContainer'>
@@ -56,8 +53,8 @@ function Login() {
           />
           <input
             name='password'
-            required
             type='password'
+            required
             placeholder='Password'
           />
           <button disabled={isLoading}>Login</button>
