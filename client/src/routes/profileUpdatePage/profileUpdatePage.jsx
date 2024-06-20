@@ -1,9 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import './profileUpdatePage.scss';
 import { AuthContext } from '../../context/AuthContect.jsx';
+import apiRequest from '../../lib/apiRequest';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileUpdatePage() {
+  const [error, setError] = useState('');
   const { currentUser, updateUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +18,18 @@ function ProfileUpdatePage() {
     const { username, email, password } = Object.fromEntries(formData);
 
     try {
-    } catch (err) {}
+      const res = await apiRequest.put(`/users/${currentUser.id}`, {
+        username,
+        email,
+        password,
+      });
+
+      updateUser(res.data);
+      navigate('/profile');
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    }
   };
 
   return (
@@ -44,6 +60,7 @@ function ProfileUpdatePage() {
             <input id='password' name='password' type='password' />
           </div>
           <button>Update</button>
+          {error && <span>error</span>}
         </form>
       </div>
       <div className='sideContainer'>
