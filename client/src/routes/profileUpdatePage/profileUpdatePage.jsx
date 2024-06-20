@@ -4,10 +4,22 @@ import { AuthContext } from '../../context/AuthContect.jsx';
 
 function ProfileUpdatePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const { username, email, password } = Object.fromEntries(formData);
+
+    try {
+    } catch (err) {}
+  };
+
   return (
     <div className='profileUpdatePage'>
       <div className='formContainer'>
-        <form>
+        <form onSubmit={handleSubmit}>
           <h1>Update Profile</h1>
           <div className='item'>
             <label htmlFor='username'>Username</label>
